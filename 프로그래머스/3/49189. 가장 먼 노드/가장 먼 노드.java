@@ -11,8 +11,6 @@ class Solution {
 		dist = new int[n+1];
 		int answer = 0;
 		
-		Arrays.fill(dist, -1);
-		dist[1] = 0;
 		for(int i=1 ; i<=n ; i++) {
 			a[i] = new ArrayList<Integer>();
 		}
