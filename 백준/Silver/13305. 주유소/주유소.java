@@ -11,27 +11,27 @@ public class Main {
 
 		int numOfCity = Integer.parseInt(br.readLine());
 
-		int[] dist = new int[numOfCity - 1];
-		int[] oilCost = new int[numOfCity];
+		long[] dist = new long[numOfCity - 1];
+		long[] oilCost = new long[numOfCity];
 
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < numOfCity - 1; i++) {
-			dist[i] = Integer.parseInt(st.nextToken());
+			dist[i] = Long.parseLong(st.nextToken());
 		}
 
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < numOfCity; i++) {
-			oilCost[i] = Integer.parseInt(st.nextToken());
+			oilCost[i] = Long.parseLong(st.nextToken());
 		}
 
-		int currentCost = oilCost[0];
-		int totalCost = 0;
+		long currentCost = oilCost[0];
+		long totalCost = 0;
 		for (int i = 0; i < numOfCity - 1; i++) {
-			totalCost += currentCost * dist[i];
-
-			if (currentCost > oilCost[i + 1]) {
-				currentCost = oilCost[i + 1];
+			if (currentCost > oilCost[i]) {
+				currentCost = oilCost[i];
 			}
+
+			totalCost += currentCost * dist[i];
 		}
 		
 		System.out.println(totalCost);
