@@ -1,47 +1,49 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-//타깃 데이터 탐색
-// 중앙값 비교를 통한 대상 축소 
-// 정렬되어있는 상태에서 원하는 값을 찾아내는 알고리즘 
-// 시간복잡도 O(logn)
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int[] A = new int[N];
-		for(int i=0; i< N ; i++) {
-			A[i] = sc.nextInt();
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		
+		int numOfOrigin = Integer.parseInt(br.readLine());
+		int[] origins = new int[numOfOrigin];
+		
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < numOfOrigin; i ++) {
+			origins[i] = Integer.parseInt(st.nextToken());
 		}
+		Arrays.sort(origins);
 		
-		Arrays.sort(A);
-		
-		int M = sc.nextInt();
-		for(int i=0; i< M; i++) {
-			boolean find = false;
-			int target = sc.nextInt();
+		int numOfTarget = Integer.parseInt(br.readLine());
+
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < numOfTarget; i ++) {
+			int left = 0;
+			int right = numOfOrigin - 1;
+			int target = Integer.parseInt(st.nextToken());
+			boolean found = false;
 			
-			//이진탐색 
-			
-			int start = 0;
-			int end = A.length -1;
-			while(start <= end) {
-				int mid = (start + end) / 2;
-				int mid_val = A[mid];
+			while(left <= right) {
+				int mid = (left + right) / 2;
+				int midVal = origins[mid];
 				
-				if(mid_val > target) {
-					end = mid -1;
-				}else if (mid_val < target) {
-					start = mid+1;
-				}else {
-					find = true;
+				if (midVal < target) {
+					left = mid + 1;
+				} else if (midVal > target) {
+					right = mid - 1;
+				} else {
+					found = true;
 					break;
-				}
+				} 
 			}
 			
-			if(find)System.out.println(1);
-			else System.out.println(0);
+			System.out.println(found ? 1 : 0);
 		}
- 	}
+	}
 
 }
