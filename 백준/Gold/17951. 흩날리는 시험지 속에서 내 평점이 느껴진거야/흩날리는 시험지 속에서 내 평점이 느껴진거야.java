@@ -1,18 +1,17 @@
-
 import java.util.Scanner;
 
 class Main {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int K = sc.nextInt();
-        int[] correct = new int[N];
+        int numOfTestPaper = sc.nextInt();
+        int targetGroup = sc.nextInt();
+        int[] score = new int[numOfTestPaper];
         int low = 0, high = 0;
 
-        for (int i = 0; i < N; i++) {
-            correct[i] = sc.nextInt();
-            high += correct[i];
+        for (int i = 0; i < numOfTestPaper; i++) {
+            score[i] = sc.nextInt();
+            high += score[i];
         }
         high++; 
 
@@ -20,8 +19,8 @@ class Main {
         	int mid = (low + high) / 2;
         	int cnt = 0, sum = 0;
         	
-        	for (int i = 0; i < N; i++) {
-        		sum += correct[i];
+        	for (int i = 0; i < numOfTestPaper; i++) {
+        		sum += score[i];
         		
         		if (sum >= mid) {
         			cnt++;
@@ -29,7 +28,7 @@ class Main {
         		}
         	}
         	
-        	if (cnt < K) {
+        	if (cnt < targetGroup) {
         		high = mid; 
         	} else {
         		low = mid + 1;
