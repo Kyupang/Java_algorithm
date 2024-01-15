@@ -1,39 +1,65 @@
-import java.util.*;
- 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
 public class Main {
-    
-    static int[] parent;
-    
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        
-        int n = scan.nextInt();
-        parent = new int[n + 1];
-        for(int i = 0; i <= n; i++) {
-            parent[i] = i;
-        }
-        
-        int m = scan.nextInt();
-        for(int i = 0; i < m; i++) {
-            int kind = scan.nextInt();
-            int num1 = scan.nextInt();
-            int num2 = scan.nextInt();
-            
-            int p1 = find(num1);
-            int p2 = find(num2);        
-            
-            if(kind == 0 && p1 != p2) union(p1, p2);
-            else if(kind == 1 && p1 != p2) System.out.println("NO");
-            else if(kind == 1 && p1 == p2) System.out.println("YES");
-        }
-    }
-    
-    public static void union(int a, int b) {
-        parent[a] = b;
-    }
-    
-    public static int find(int a) {
-        if(parent[a] == a) return a;
-        else return parent[a] = find(parent[a]);
-    }
-}    
+	static int[] representation;
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+		int numOfSet = Integer.parseInt(st.nextToken());
+		int numOfQuestion = Integer.parseInt(st.nextToken());
+
+		representation = new int[numOfSet + 1];
+
+		for (int i = 1; i <= numOfSet; i++) {
+			representation[i] = i;
+		}
+
+		for (int i = 0; i < numOfQuestion; i++) {
+			st = new StringTokenizer(br.readLine());
+
+			int question = Integer.parseInt(st.nextToken());
+			int setA = Integer.parseInt(st.nextToken());
+			int setB = Integer.parseInt(st.nextToken());
+
+			if (question == 0) {
+				union(setA, setB);
+			} else {
+				if (checkSame(setA, setB)) {
+					System.out.println("YES");
+				} else {
+					System.out.println("NO");
+				}
+			}
+		}
+	}
+
+	private static void union(int a, int b) {
+		a = find(a);
+		b = find(b);
+
+		if (a != b)
+			representation[b] = a;
+	}
+
+	private static int find(int x) {
+		if (x == representation[x]) {
+			return x;
+		} else {
+			return representation[x] = find(representation[x]);
+		}
+	}
+
+	private static boolean checkSame(int a, int b) {
+		a = find(a);
+		b = find(b);
+
+		if (a == b)
+			return true;
+		return false;
+	}
+}
