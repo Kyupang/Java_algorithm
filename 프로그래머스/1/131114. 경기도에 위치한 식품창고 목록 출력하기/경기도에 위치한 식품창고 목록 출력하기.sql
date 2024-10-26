@@ -3,3 +3,4 @@ SELECT WAREHOUSE_ID,  WAREHOUSE_NAME, ADDRESS, Coalesce(FREEZER_YN,'N') as FREEZ
 from FOOD_WAREHOUSE 
 where ADDRESS like "%경기%"
 order by  WAREHOUSE_ID asc;
+
