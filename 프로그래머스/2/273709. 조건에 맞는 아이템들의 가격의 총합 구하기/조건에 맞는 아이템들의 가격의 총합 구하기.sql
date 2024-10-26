@@ -1,6 +1,3 @@
-SELECT MAX(TOTAL_PRICE) AS TOTAL_PRICE
-FROM (
-    SELECT SUM(PRICE) AS TOTAL_PRICE
-    FROM ITEM_INFO
-    GROUP BY RARITY
-) as subquery
+select sum(price) as total_price 
+from item_info
+where rarity like "legend"
